@@ -1,0 +1,7 @@
+Usage: proxytest <options> URLs
+    -h  --help      This help text
+    -f  --forwards  The number of forwards to test for (Default: 3)
+    -m  --method    The method to use (Default: OPTIONS)
+    -u  --url       A list of urls to test
+
+    Output format: Forwards: <number of forwards> -- <status code> -- <VIA header> -- <ALLOW header> -- <Server>"
