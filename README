@@ -1,3 +1,5 @@
+A crude attempt at detecting Web Proxies.
+
 Usage: proxytest <options> URLs
     -h  --help      This help text
     -f  --forwards  The number of forwards to test for (Default: 3)
