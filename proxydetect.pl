@@ -56,6 +56,9 @@ LOOP: foreach my $url (@urls){
         my $opt = $resp->header('Allow') || "OPTIONS not supported";
         my $server = $resp->header('Server') || "Unknown server";
         my $via = $resp->header('Via') || "No via";
+        my $cache = $resp->header('Cache-Control') || "No Cache-Control";
+        my $cookie = $resp->header('Set-Cookie') || "No Set-Cookie";
+
 
         if($via ne "No via" || 
             ($code_last && ($code ne $code_last)) || 
@@ -63,12 +66,23 @@ LOOP: foreach my $url (@urls){
             ($server_last && ($server ne $server_last))){
           $found = 1;
         } 
+        
+        if($cache ne "No Cache-Control"){
+            $found = 1;
+            $cache = "Cache-Control set";
+        }
 
+        if($cookie =~ "ISAWPLB"){
+            $found = 1;
+            $cookie = "ISAWPLB cookie set";
+        }
+
+        
         $code_last = $code;
         $opt_last = $opt;
         $server_last = $server;
 
-        print "Forwards: $i -- $code -- $via -- $opt -- $server\n";
+        print "Forwards: $i -- $code -- $via -- $cache -- $cookie -- $opt -- $server\n";
     } 
 
     if($found){print "Possible proxy detected\n";}
