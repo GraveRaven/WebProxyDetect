@@ -58,12 +58,13 @@ LOOP: foreach my $url (@urls){
         my $via = $resp->header('Via') || "No via";
         my $cache = $resp->header('Cache-Control') || "No Cache-Control";
         my $cookie = $resp->header('Set-Cookie') || "No Set-Cookie";
-
+        my $age = $resp->header('Age') || "No Age";
 
         if($via ne "No via" || 
             ($code_last && ($code ne $code_last)) || 
             ($opt_last && ($opt ne $opt_last)) ||  
-            ($server_last && ($server ne $server_last))){
+            ($server_last && ($server ne $server_last)) ||
+            ($age ne "No Age")){
           $found = 1;
         } 
         
@@ -82,7 +83,7 @@ LOOP: foreach my $url (@urls){
         $opt_last = $opt;
         $server_last = $server;
 
-        print "Forwards: $i -- $code -- $via -- $cache -- $cookie -- $opt -- $server\n";
+        print "Forwards: $i -- $code -- $via -- $cache -- $cookie -- $age -- $opt -- $server\n";
     } 
 
     if($found){print "Possible proxy detected\n";}
